@@ -1,0 +1,73 @@
+<!-- 🔥 Updated index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="fade-in">
+    <div class="toast" id="toast"></div>
+
+    <div class="top-bar">
+        <button onclick="toggleDarkMode()" class="toggle-mode">🌙 Toggle Dark Mode</button>
+        <select id="themeSelector" onchange="changeTheme()">
+            <option value="default">Default</option>
+            <option value="blue">Ocean Blue</option>
+            <option value="green">Mint Green</option>
+            <option value="pink">Blush Pink</option>
+        </select>
+    </div>
+
+    <h1><i class="fa-brands fa-quora"></i> Quora Posts</h1>
+
+    <% for (let post of posts) { %>
+        <div class="post-card animate">
+            <h3 class="user"><i class="fa-solid fa-user"></i> @<%= post.username %></h3>
+            <h4 class="content"><%= post.content %></h4>
+            <p><strong>ID:</strong> <%= post.id %></p>
+            <a href="/posts/<%= post.id %>"><i class="fa-solid fa-eye"></i> See in Details</a>
+        </div>
+    <% } %>
+
+    <br>
+    <a href="/posts/new">
+        <button><i class="fa-solid fa-plus"></i> Create New Post</button>
+    </a>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.className = 'toast show';
+            setTimeout(() => { toast.className = toast.className.replace('show', ''); }, 3000);
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById("themeSelector").value;
+            document.body.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+        }
+
+        window.onload = function () {
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            if (localStorage.getItem("theme")) {
+                document.body.setAttribute("data-theme", localStorage.getItem("theme"));
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get("toast")) showToast(urlParams.get("toast"));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Create New Post</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="fade-in">
+    <div class="toast" id="toast"></div>
+
+    <div class="top-bar">
+        <button onclick="toggleDarkMode()" class="toggle-mode">🌙 Toggle Dark Mode</button>
+        <select id="themeSelector" onchange="changeTheme()">
+            <option value="default">Default</option>
+            <option value="blue">Ocean Blue</option>
+            <option value="green">Mint Green</option>
+            <option value="pink">Blush Pink</option>
+        </select>
+    </div>
+
+    <h1><i class="fa-solid fa-pen-to-square"></i> Create a New Post</h1>
+    <form method="POST" action="/posts">
+        <label for="username">Username:</label><br>
+        <input id="username" name="username" placeholder="Enter Username" required /> <br/><br/>
+
+        <label for="content">Post:</label><br>
+        <textarea id="content" name="content" placeholder="Write your post" required></textarea> <br/><br/>
+
+        <button type="submit" class="animate-btn"><i class="fa-solid fa-paper-plane"></i> Submit Post</button>
+    </form>
+
+    <br>
+    <a href="/posts"><button class="animate-btn"><i class="fa-solid fa-arrow-left"></i> Back to Posts</button></a>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById("themeSelector").value;
+            document.body.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.className = 'toast show';
+            setTimeout(() => { toast.className = toast.className.replace('show', ''); }, 3000);
+        }
+
+        window.onload = function () {
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            if (localStorage.getItem("theme")) {
+                document.body.setAttribute("data-theme", localStorage.getItem("theme"));
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get("toast")) showToast(urlParams.get("toast"));
+        }
+    </script>
+</body>
+</html>

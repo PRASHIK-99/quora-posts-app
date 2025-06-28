@@ -1,0 +1,261 @@
+/* styles.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.6s ease both;
+}
+
+.post-card, .post, form {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: fadeInUp 0.6s ease both;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.user {
+    font-weight: 600;
+    color: #2980b9;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.content {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+form label {
+    font-weight: 600;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    animation: fadeInUp 0.5s ease both;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: scale(1.03);
+}
+
+button.delete {
+    background-color: #e74c3c;
+    margin-left: 10px;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.toggle-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #555;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.toggle-mode:hover {
+    background-color: #333;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #333;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 999;
+    font-weight: 500;
+}
+.toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.theme-switcher select {
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    padding: 4px;
+    cursor: pointer;
+}
+
+/* Theme Colors */
+body[data-theme="blue"] {
+    --primary: #3498db;
+    background: #eaf6fb;
+    color: #1e3a5f;
+}
+body[data-theme="green"] {
+    --primary: #2ecc71;
+    background: #e7f9ef;
+    color: #1d4033;
+}
+body[data-theme="pink"] {
+    --primary: #ff6b81;
+    background: #fff0f5;
+    color: #512c3b;
+}
+body[data-theme="default"] {
+    --primary: #3498db;
+    background: #f4f6f8;
+    color: #333;
+}
+
+body[data-theme] .user {
+    color: var(--primary);
+}
+body[data-theme] button {
+    background-color: var(--primary);
+}
+body[data-theme] button:hover {
+    background-color: darken(var(--primary), 10%);
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: #1e1e1e;
+    color: #f5f5f5;
+}
+body.dark-mode .post-card,
+body.dark-mode form,
+body.dark-mode .post {
+    background-color: #2b2b2b;
+    color: #f5f5f5;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+body.dark-mode .user {
+    color: #80d0ff;
+}
+body.dark-mode .content {
+    color: #ccc;
+}
+body.dark-mode input,
+body.dark-mode textarea {
+    background: #333;
+    color: #f5f5f5;
+    border: 1px solid #555;
+}
+body.dark-mode button {
+    background-color: #444;
+    color: white;
+}
+body.dark-mode button:hover {
+    background-color: #555;
+}
+body.dark-mode .toggle-mode {
+    background-color: #888;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 10px;
+    }
+    .post-card, form, .post {
+        padding: 15px;
+        margin: 15px auto;
+    }
+    button {
+        width: 100%;
+    }
+    .toggle-mode {
+        top: 5px;
+        right: 5px;
+        padding: 8px;
+    }
+    .theme-switcher {
+        top: 5px;
+        left: 5px;
+        padding: 6px;
+    }
+}
